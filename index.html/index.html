@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Waste to Energy - Turning waste into sustainable energy for a cleaner future.">
+    <meta name="keywords" content="waste management, renewable energy, sustainability">
+    <meta name="author" content="Your Name">
+    <title>Waste to Energy</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <h1 id="welcomeMessage">Welcome to Waste to Energy</h1>
+            <p>Turning waste into sustainable energy for a cleaner future.</p>
+            <button id="logoutButton" style="float: right; background-color: #05531f; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Log Out</button>
+            <button id="themeToggleButton" style="float: right; margin-right: 10px; background-color: #333; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Dark Mode</button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="./report-problem.html">Report a Problem</a></li>
+                <li><a href="./request-help.html">Request Help</a></li>
+                <li><a href="./feedback.html">Give Feedback</a></li>
+                <li><a href="./signup.html">Sign Up</a></li>
+                <li><a href="./login.html">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <!-- About Section -->
+        <section class="about">
+            <h2>About Us</h2>
+            <p>We are committed to turning waste into energy while keeping our environment clean and sustainable. Our innovative solutions help reduce landfill waste and create renewable energy sources for a better tomorrow.</p>
+            <img src="./images/about-bg.jpg.jpeg" alt="About Waste to Energy">
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission">
+            <h2>Our Mission</h2>
+            <p>At Waste to Energy, our mission is to revolutionize waste management by transforming waste into valuable energy resources. We aim to create a cleaner, greener planet for future generations.</p>
+            <ul>
+                <li>Reduce landfill waste</li>
+                <li>Promote renewable energy</li>
+                <li>Support sustainable communities</li>
+            </ul>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <h2>Our Services</h2>
+            <div class="service">
+                <img src="./images/report-problem.jpg.jpeg" alt="Report a Problem">
+                <a href="./report-problem.html"><h3>Report a Problem</h3></a>
+                <p>Let us know about issues like overflowing bins or trash on the street.</p>
+            </div>
+            <div class="service">
+                <img src="./images/request-help.jpg.jpeg" alt="Request Help">
+                <a href="./request-help.html"><h3>Request Help</h3></a>
+                <p>Ask for special pickups, like large items or hazardous waste.</p>
+            </div>
+            <div class="service"> 
+                <img src="./images/feedback.jpg.jpeg" alt="Give Feedback">
+                <a href="./feedback.html"><h3>Give Feedback</h3></a>
+                <p>Share your thoughts about the services we provide.</p>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <h2>What People Are Saying</h2>
+            <div class="testimonial">
+                <p>"Waste to Energy has completely transformed how we manage waste in our community. Their services are reliable and eco-friendly!"</p>
+                <h4>- Sarah Johnson</h4>
+            </div>
+            <div class="testimonial">
+                <p>"I love how Waste to Energy turns trash into treasure. It's amazing to see waste being used to create renewable energy."</p>
+                <h4>- Michael Lee</h4>
+            </div>
+        </section>
+
+        <!-- Call-to-Action Section -->
+        <section class="cta">
+            <h2>Join Us in Making a Difference</h2>
+            <p>Be part of the solution. Together, we can create a cleaner, greener future. Sign up today to get started!</p>
+            <a href="./signup.html" class="cta-button" id="signupButton" style="display: none;">Sign Up Now</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Waste to Energy. All rights reserved.</p>
+    </footer>
+    <script>
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            localStorage.removeItem('username'); // Remove the username from localStorage
+            alert('You have been logged out.');
+            window.location.href = './index.html'; // Redirect to the home page
+        });
+
+        // Retrieve the username from localStorage
+        const username = localStorage.getItem('username');
+
+        // Update the welcome message if the user is logged in
+        if (username) {
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            welcomeMessage.textContent = `Welcome, ${username}`;
+        }
+
+        const loginLink = document.querySelector('a[href="./login.html"]');
+        const logoutLink = document.getElementById('logoutButton');
+
+        if (username) {
+            loginLink.style.display = 'none'; // Hide "Log In"
+            logoutLink.style.display = 'inline'; // Show "Log Out"
+        } else {
+            loginLink.style.display = 'inline'; // Show "Log In"
+            logoutLink.style.display = 'none'; // Hide "Log Out"
+        }
+
+        // Theme Toggle
+        const themeToggleButton = document.getElementById('themeToggleButton');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggleButton.textContent = 'Light Mode';
+        }
+
+        themeToggleButton.addEventListener('click', function () {
+            document.body.classList.toggle('dark-theme');
+            const isDarkMode = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+            themeToggleButton.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+        });
+    </script>
+</body>
+</html>

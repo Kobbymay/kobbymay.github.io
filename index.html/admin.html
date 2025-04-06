@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - All Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <button id="logoutButton" style="float: right; background-color: #e74c3c; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Log Out</button>
+    </header>
+    <main>
+        <section>
+            <h2>All Registered Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Full Name</th>
+                        <th>Email Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTable"></tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Feedback Submissions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Feedback</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="feedbackTable"></tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Problem Reports</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Problem</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="problemTable"></tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Help Requests</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Help Type</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="helpRequestTable"></tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+        // Check if the admin is logged in
+        const isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn');
+        if (!isAdminLoggedIn) {
+            alert('You must log in as an admin to access this page.');
+            window.location.href = './admin-login.html'; // Redirect to admin login page
+        }
+    </script>
+    <script>
+        const logoutButton = document.getElementById('logoutButton');
+        logoutButton.addEventListener('click', function () {
+            localStorage.removeItem('isAdminLoggedIn'); // Clear admin login flag
+            alert('You have been logged out.');
+            window.location.href = './admin-login.html'; // Redirect to login page
+        });
+    </script>
+    <script>
+        // Function to render a table with delete functionality
+        function renderTable(data, tableBody, localStorageKey) {
+            tableBody.innerHTML = ''; // Clear the table body
+            data.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    ${Object.values(item).map(value => `<td>${value}</td>`).join('')}
+                    <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Add event listeners to delete buttons
+            tableBody.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const index = this.getAttribute('data-index');
+                    data.splice(index, 1); // Remove the item from the array
+                    localStorage.setItem(localStorageKey, JSON.stringify(data)); // Update localStorage
+                    renderTable(data, tableBody, localStorageKey); // Re-render the table
+                });
+            });
+        }
+
+        // Users Table
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const usersTable = document.getElementById('usersTable');
+        renderTable(users, usersTable, 'users');
+
+        // Feedback Table
+        const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+        const feedbackTable = document.getElementById('feedbackTable');
+        renderTable(feedbacks, feedbackTable, 'feedbacks');
+
+        // Problem Reports Table
+        const problems = JSON.parse(localStorage.getItem('problems')) || [];
+        const problemTable = document.getElementById('problemTable');
+        renderTable(problems, problemTable, 'problems');
+
+        // Help Requests Table
+        const helpRequests = JSON.parse(localStorage.getItem('helpRequests')) || [];
+        const helpRequestTable = document.getElementById('helpRequestTable');
+        renderTable(helpRequests, helpRequestTable, 'helpRequests');
+    </script>
+</body>
+</html>

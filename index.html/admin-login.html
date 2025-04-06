@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Login</h1>
+    </header>
+    <main>
+        <form id="adminLoginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Log In</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 Waste to Energy. All rights reserved.</p>
+    </footer>
+    <script>
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        adminLoginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Hardcoded admin credentials (replace with secure authentication in production)
+            const adminUsername = "admin";
+            const adminPassword = "admin123";
+
+            if (username === adminUsername && password === adminPassword) {
+                localStorage.setItem('isAdminLoggedIn', 'true'); // Set admin login flag
+                alert('Login successful!');
+                window.location.href = './admin.html'; // Redirect to admin page
+            } else {
+                alert('Invalid username or password. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

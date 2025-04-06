@@ -1,0 +1,201 @@
+:root {
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --hero-background: #05531f;
+    --button-background: #333;
+    --button-text-color: white;
+}
+
+/* General Styles */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+header {
+    position: relative;
+    background: url('./images/hero-bg.jpg.jpeg') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 4rem 1rem;
+    overflow: hidden; /* Ensures the pseudo-element doesn't overflow the header */
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit; /* Inherits the background image */
+    filter: blur(8px); /* Adjust the blur intensity */
+    z-index: -1; /* Places the blurred background behind the content */
+}
+
+header .hero {
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    color: var(--button-text-color);
+    text-align: center;
+    padding: 4rem 1rem;
+    border-radius: 10px;
+    position: relative;
+}
+header .hero h1, header .hero p {
+    position: relative; /* Ensure the text stays above the translucent background */
+    z-index: 1;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Add shadow for better readability */
+}
+
+header .hero h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+header .hero p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border: 2px solid white;
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+    background: white;
+    color: #4CAF50;
+}
+
+/* Main Content */
+main {
+    padding: 2rem;
+    text-align: center;
+}
+
+.about {
+    background: url('./images/images.jpeg') no-repeat center center/cover;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.about img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.service {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-width: 300px;
+    text-align: center;
+}
+
+.service img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.service h3 {
+    margin: 1rem 0 0.5rem;
+    color: #4CAF50;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #1c6272; /* Deep blue-green */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #e0e0e0; /* Light text color */
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #007c7f; /* Vibrant teal border */
+    border-radius: 5px;
+    background: #2f4858; /* Dark teal background */
+    color: #e0e0e0; /* Light text color */
+    font-size: 1em;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #19967e; /* Bright green-teal focus effect */
+    box-shadow: 0 0 5px #19967e;
+}
+
+button {
+    background-color: var(--button-background);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Dark Theme */
+.dark-theme {
+    --background-color: #333;
+    --text-color: #f4f4f9;
+    --hero-background: #222;
+    --button-background: #555;
+    --button-text-color: #f4f4f9;
+}

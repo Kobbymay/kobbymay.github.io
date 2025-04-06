@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("./images/green-abstract-light-background-polygon-600nw-2301935423.webp");
+        }
+
+        .signup-container {
+            background: whitesmoke;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            color: #333333;
+        }
+
+        .signup-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signup-container label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .signup-container input {
+            margin-top: 5px;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+
+        .signup-container button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .signup-container button:hover {
+            background-color: #45a049;
+        }
+
+        .signup-container p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup-container a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .signup-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Create a password" minlength="4" required>
+            
+            <label for="confirmPassword">Re-enter Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter the password" minlength="4" required>
+           
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="./login.html">Log In</a></p>
+    </div>
+
+    <script>
+        const form = document.getElementById('signupForm');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
+            }
+
+            // Retrieve existing users from localStorage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the email is already registered
+            if (users.some(user => user.email === email)) {
+                alert('This email is already registered. Please use a different email.');
+                return;
+            }
+
+            // Add the new user to the array
+            users.push({ name, email, password }); // Avoid storing plain text passwords in production
+
+            // Save the updated users array back to localStorage
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Debugging: Log the users array to confirm it's being saved
+            console.log('Users saved to localStorage:', users);
+
+            // Set a flag to indicate the user has signed up
+            localStorage.setItem('isSignedUp', 'true');
+
+            // Save the username
+            localStorage.setItem('username', name);
+
+            alert('Sign up successful!');
+            window.location.href = './index.html'; // Redirect to a welcome page
+        });
+    </script>
+</body>
+</html>

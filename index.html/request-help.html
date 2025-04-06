@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Help - Waste to Energy</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Waste to Energy</h1>
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./report-problem.html">Report a Problem</a></li>
+                <li><a href="./request-help.html">Request Help</a></li>
+                <li><a href="./feedback.html">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Request Help</h2>
+        <form id="helpRequestForm">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="helpType">Type of Help Needed:</label>
+            <select id="helpType" name="helpType" required>
+                <option value="large-item">Large Item Pickup</option>
+                <option value="hazardous-waste">Hazardous Waste Pickup</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <button type="submit">Submit Request</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 Waste to Energy. All rights reserved.</p>
+    </footer>
+    <script>
+        const helpRequestForm = document.getElementById('helpRequestForm');
+        helpRequestForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const helpType = document.getElementById('helpType').value;
+            const description = document.getElementById('description').value;
+
+            // Retrieve existing help requests from localStorage
+            const helpRequests = JSON.parse(localStorage.getItem('helpRequests')) || [];
+
+            // Add the new help request
+            helpRequests.push({ name, email, helpType, description });
+
+            // Save back to localStorage
+            localStorage.setItem('helpRequests', JSON.stringify(helpRequests));
+
+            alert('Thank you for contacting us. We will get back to you shortly.');
+            window.location.href = './index.html'; // Redirect to home page
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome, <span id="userName"></span>!</h1>
+
+    <script>
+        // Retrieve all users from localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        if (users.length > 0) {
+            console.log('All Users:', users);
+
+            // Display the first user's name as an example
+            const currentUser = users[users.length - 1]; // Assuming the last signed-up user is the current user
+            document.getElementById('userName').textContent = currentUser.name;
+        } else {
+            alert('No user info found. Redirecting to sign-up page.');
+            window.location.href = './signup.html';
+        }
+    </script>
+</body>
+</html>
