@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETRACONNECT - Recycled Products</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            background: #007bff;
+            color: white;
+            padding: 20px 0;
+        }
+
+        header img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #f8f9fa;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #0056b3;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product h3 {
+            font-size: 1.2rem;
+            margin: 10px;
+            color: #007bff;
+        }
+
+        .product p {
+            font-size: 0.9rem;
+            margin: 10px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            background: #333;
+            color: white;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        // Check if the user is logged in
+        const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
+    
+        if (!isLoggedIn || isLoggedIn !== "true") {
+            alert("You must log in to access this page.");
+            window.location.href = "login.html"; // Redirect to the login page
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="images/logo.jpg" alt="PETRACONNECT Logo">
+        <h1>Recycled Products</h1>
+        <p>Discover our range of products made from recycled materials.</p>
+    </header>
+    <nav>
+        <a href="./index.html">Home</a>
+        <a href="recycled.html">Products</a>
+        <a href="providers.html">Provider Registration</a>
+        <a href="recruitment.html">Join Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="location-services.html">Locate Us</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="requesthelp.html">Request Help</a>
+        <button id="logoutButton">Log Out</button>
+<script>
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        localStorage.removeItem("isAdminLoggedIn");
+        alert("You have been logged out.");
+        window.location.href = "login.html"; // Redirect to the login page
+    });
+</script>
+    </nav>
+    <section class="products">
+        <div class="product">
+            <img src="./images/download (4).jpeg" alt="Recycled Plastic Bricks">
+            <h3>Recycled Plastic Bricks</h3>
+            <p>Durable and eco-friendly bricks for construction.</p>
+        </div>
+        <div class="product">
+            <img src="./images/OIP.jpeg" alt="Plastic Road Materials">
+            <h3>Plastic Road Materials</h3>
+            <p>Innovative materials for road construction.</p>
+        </div>
+        <div class="product">
+            <img src="./images/download (5).jpeg" alt="Recycled Furniture">
+            <h3>Recycled Furniture</h3>
+            <p>Stylish and sustainable furniture options.</p>
+        </div>
+        <div class="product">
+            <img src="./images/OIP (1).jpeg" alt="Eco-friendly Packaging">
+            <h3>Eco-friendly Packaging</h3>
+            <p>Sustainable packaging solutions for businesses.</p>
+        </div>
+        <!-- New Products -->
+        <div class="product">
+            <img src="./images/download.jpeg" alt="Plytanks">
+            <h3>Plytanks</h3>
+            <p>Durable water storage tanks made from recycled materials.</p>
+        </div>
+        <div class="product">
+            <img src="./images/download (3).jpeg" alt="Dustbins">
+            <h3>Dustbins</h3>
+            <p>Eco-friendly dustbins for waste management.</p>
+        </div>
+        <div class="product">
+            <img src="./images/download (2).jpeg" alt="Rubber Bands">
+            <h3>Rubber Bands</h3>
+            <p>Strong and flexible rubber bands for various uses.</p>
+        </div>
+        <div class="product">
+            <img src="./images/download (3).jpeg" alt="Rubber Bowls and Cups">
+            <h3>Rubber Bowls and Cups</h3>
+            <p>Reusable and sustainable bowls and cups.</p>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

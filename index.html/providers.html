@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Registration - PETRACONNECT</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        // Check if the user is logged in
+        const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
+    
+        if (!isLoggedIn || isLoggedIn !== "true") {
+            alert("You must log in to access this page.");
+            window.location.href = "login.html"; // Redirect to the login page
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="images/logo.jpg" alt="PETRACONNECT Logo">
+        <h1>Provider Registration</h1>
+        <p>Join us in our mission to recycle plastic waste.</p>
+    </header>
+    <nav>
+        <a href="./index.html">Home</a>
+        <a href="recycled.html">Products</a>
+        <a href="providers.html">Provider Registration</a>
+        <a href="recruitment.html">Join Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="location-services.html">Locate Us</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="requesthelp.html">Request Help</a>
+        <button id="logoutButton">Log Out</button>
+<script>
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        localStorage.removeItem("isAdminLoggedIn");
+        alert("You have been logged out.");
+        window.location.href = "login.html"; // Redirect to the login page
+    });
+</script>
+    </nav>
+    <section id="provider-registration">
+        <h2>Register to Supply Plastic Waste</h2>
+        <form id="providerForm">
+            <input type="text" id="providerName" placeholder="Your Name" required><br>
+            <input type="text" id="providerLocation" placeholder="Your Location" required><br>
+            <button type="submit" id="submit">Register</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
+    </footer>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

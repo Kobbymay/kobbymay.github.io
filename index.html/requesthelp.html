@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback - PETRACONNECT</title>
+    <title>Request Help - PETRACONNECT</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
         // Check if the user is logged in
@@ -17,8 +17,8 @@
 </head>
 <body>
     <header>
-        <h1>We Value Your Feedback</h1>
-        <p>Your feedback helps us improve our services and products.</p>
+        <h1>Request Assistance</h1>
+        <p>We are here to help. Please fill out the form below to request assistance.</p>
         <nav>
             <a href="./index.html">Home</a>
             <a href="recycled.html">Products</a>
@@ -39,42 +39,42 @@
         </nav>
     </header>
     <section>
-        <h2>Share Your Feedback</h2>
-        <p>We would love to hear your thoughts, suggestions, or concerns.</p>
-        <form id="feedbackForm">
-            <input type="text" id="feedbackName" placeholder="Your Name" required><br>
-            <input type="email" id="feedbackEmail" placeholder="Your Email" required><br>
-            <textarea id="feedbackMessage" placeholder="Your Feedback" required></textarea><br>
-            <button type="submit">Submit Feedback</button>
+        <h2>Request Help</h2>
+        <p>If you need assistance, please provide your details and describe your issue below.</p>
+        <form id="helpRequestForm">
+            <input type="text" id="requesterName" placeholder="Your Name" required><br>
+            <input type="email" id="requesterEmail" placeholder="Your Email" required><br>
+            <textarea id="requestMessage" placeholder="Describe your issue or request" required></textarea><br>
+            <button type="submit">Submit Request</button>
         </form>
     </section>
     <footer>
         <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
     </footer>
     <script>
-        document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+        document.getElementById("helpRequestForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
             // Capture form data
-            const name = document.getElementById("feedbackName").value;
-            const email = document.getElementById("feedbackEmail").value;
-            const message = document.getElementById("feedbackMessage").value;
+            const name = document.getElementById("requesterName").value;
+            const email = document.getElementById("requesterEmail").value;
+            const message = document.getElementById("requestMessage").value;
 
-            // Create a feedback object
-            const feedback = { name, email, message };
+            // Create a help request object
+            const helpRequest = { name, email, message };
 
-            // Retrieve existing feedback from local storage
-            const feedbackList = JSON.parse(localStorage.getItem("feedbackList")) || [];
+            // Retrieve existing help requests from local storage
+            const helpRequests = JSON.parse(localStorage.getItem("helpRequests")) || [];
 
-            // Add the new feedback to the list
-            feedbackList.push(feedback);
+            // Add the new help request to the list
+            helpRequests.push(helpRequest);
 
             // Save the updated list back to local storage
-            localStorage.setItem("feedbackList", JSON.stringify(feedbackList));
+            localStorage.setItem("helpRequests", JSON.stringify(helpRequests));
 
             // Show confirmation and reset the form
-            alert("Thank you for your feedback!");
-            document.getElementById("feedbackForm").reset();
+            alert("Your help request has been submitted! We will get back to you shortly.");
+            document.getElementById("helpRequestForm").reset();
         });
     </script>
 </body>

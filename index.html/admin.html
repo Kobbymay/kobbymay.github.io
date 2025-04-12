@@ -3,183 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - All Users</title>
+    <title>Admin - Contact Messages</title>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #333;
-        }
-
         table {
-            width: 100%;
+            width: 90%;
+            margin: 20px auto;
             border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px;
             text-align: left;
         }
 
-        th {
-            background-color: #4CAF50;
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #007bff;
             color: white;
         }
 
-        tr:nth-child(even) {
+        table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
 
-        .delete-btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        table tr:hover {
+            background-color: #f1f1f1;
         }
 
-        .delete-btn:hover {
-            background-color: #c0392b;
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #007bff;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Admin Dashboard</h1>
-        <button id="logoutButton" style="float: right; background-color: #e74c3c; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Log Out</button>
+        <h1>Admin Panel</h1>
+        <p>View all submitted contact messages.</p>
     </header>
     <main>
         <section>
-            <h2>All Registered Users</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Full Name</th>
-                        <th>Email Address</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTable"></tbody>
-            </table>
-        </section>
-
-        <section>
-            <h2>Feedback Submissions</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Feedback</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="feedbackTable"></tbody>
-            </table>
-        </section>
-
-        <section>
-            <h2>Problem Reports</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Problem</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="problemTable"></tbody>
-            </table>
-        </section>
-
-        <section>
-            <h2>Help Requests</h2>
-            <table>
+            <h2>Contact Messages</h2>
+            <table id="messagesTable">
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Help Type</th>
-                        <th>Description</th>
-                        <th>Actions</th>
+                        <th>Message</th>
                     </tr>
                 </thead>
-                <tbody id="helpRequestTable"></tbody>
+                <tbody>
+                    <!-- Messages will be dynamically inserted here -->
+                </tbody>
             </table>
         </section>
+        <section>
+            <h2>Recruitment Applications</h2>
+            <table id="applicationsTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Applications will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Registered Users</h2>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Users will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+        <button id="logoutButton" style="margin: 20px;">Log Out</button>
     </main>
+    <footer>
+        <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
+    </footer>
     <script>
-        // Check if the admin is logged in
-        const isAdminLoggedIn = localStorage.getItem('isAdminLoggedIn');
-        if (!isAdminLoggedIn) {
-            alert('You must log in as an admin to access this page.');
-            window.location.href = './admin-login.html'; // Redirect to admin login page
-        }
-    </script>
-    <script>
-        const logoutButton = document.getElementById('logoutButton');
-        logoutButton.addEventListener('click', function () {
-            localStorage.removeItem('isAdminLoggedIn'); // Clear admin login flag
-            alert('You have been logged out.');
-            window.location.href = './admin-login.html'; // Redirect to login page
-        });
-    </script>
-    <script>
-        // Function to render a table with delete functionality
-        function renderTable(data, tableBody, localStorageKey) {
-            tableBody.innerHTML = ''; // Clear the table body
-            data.forEach((item, index) => {
-                const row = document.createElement('tr');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if the user is authenticated
+            const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
+
+            if (!isAdminLoggedIn || isAdminLoggedIn !== "true") {
+                alert("You must log in to access the admin panel.");
+                window.location.href = "./adminlogin.html";
+                return;
+            }
+
+            // Load registered users
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const usersTableBody = document.getElementById("usersTable").querySelector("tbody");
+
+            users.forEach(user => {
+                const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${index + 1}</td>
-                    ${Object.values(item).map(value => `<td>${value}</td>`).join('')}
-                    <td><button class="delete-btn" data-index="${index}">Delete</button></td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
                 `;
-                tableBody.appendChild(row);
+                usersTableBody.appendChild(row);
             });
 
-            // Add event listeners to delete buttons
-            tableBody.querySelectorAll('.delete-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    const index = this.getAttribute('data-index');
-                    data.splice(index, 1); // Remove the item from the array
-                    localStorage.setItem(localStorageKey, JSON.stringify(data)); // Update localStorage
-                    renderTable(data, tableBody, localStorageKey); // Re-render the table
-                });
+            if (users.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="2" style="text-align: center;">No users found.</td>`;
+                usersTableBody.appendChild(row);
+            }
+
+            // Load contact messages
+            const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+            const messagesTableBody = document.getElementById("messagesTable").querySelector("tbody");
+
+            contacts.forEach(contact => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${contact.name}</td>
+                    <td>${contact.email}</td>
+                    <td>${contact.message}</td>
+                `;
+                messagesTableBody.appendChild(row);
             });
-        }
 
-        // Users Table
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const usersTable = document.getElementById('usersTable');
-        renderTable(users, usersTable, 'users');
+            if (contacts.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="3" style="text-align: center;">No messages found.</td>`;
+                messagesTableBody.appendChild(row);
+            }
 
-        // Feedback Table
-        const feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
-        const feedbackTable = document.getElementById('feedbackTable');
-        renderTable(feedbacks, feedbackTable, 'feedbacks');
+            // Load recruitment applications
+            const applications = JSON.parse(localStorage.getItem("recruitmentApplications")) || [];
+            const applicationsTableBody = document.getElementById("applicationsTable").querySelector("tbody");
 
-        // Problem Reports Table
-        const problems = JSON.parse(localStorage.getItem('problems')) || [];
-        const problemTable = document.getElementById('problemTable');
-        renderTable(problems, problemTable, 'problems');
+            applications.forEach(application => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${application.name}</td>
+                    <td>${application.email}</td>
+                    <td>${application.message}</td>
+                `;
+                applicationsTableBody.appendChild(row);
+            });
 
-        // Help Requests Table
-        const helpRequests = JSON.parse(localStorage.getItem('helpRequests')) || [];
-        const helpRequestTable = document.getElementById('helpRequestTable');
-        renderTable(helpRequests, helpRequestTable, 'helpRequests');
+            if (applications.length === 0) {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td colspan="3" style="text-align: center;">No applications found.</td>`;
+                applicationsTableBody.appendChild(row);
+            }
+        });
+
+        document.getElementById("logoutButton").addEventListener("click", function() {
+            localStorage.removeItem("isAdminLoggedIn");
+            window.location.href = "login.html";
+        });
     </script>
 </body>
 </html>

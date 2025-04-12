@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - PETRACONNECT</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Inline styles for specific background images */
+        body {
+            background-image: url('images/contact-background.jpg'); /* Replace with a relevant background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better readability */
+        }
+
+        footer {
+            background: url('images/footer-texture.jpg'); /* Replace with a subtle footer texture */
+            background-size: cover;
+            color: white;
+        }
+    </style>
+    <script>
+        // Check if the user is logged in
+        const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
+    
+        if (!isLoggedIn || isLoggedIn !== "true") {
+            alert("You must log in to access this page.");
+            window.location.href = "login.html"; // Redirect to the login page
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="images/logo.jpg" alt="PETRACONNECT Logo">
+        <h1>Contact Us</h1>
+        <p>Get in touch for more information.</p>
+    </header>
+    <nav>
+        <a href="./index.html">Home</a>
+        <a href="recycled.html">Products</a>
+        <a href="providers.html">Provider Registration</a>
+        <a href="recruitment.html">Join Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="location-services.html">Locate Us</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="requesthelp.html">Request Help</a>
+        <button id="logoutButton">Log Out</button>
+<script>
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        localStorage.removeItem("isAdminLoggedIn");
+        alert("You have been logged out.");
+        window.location.href = "login.html"; // Redirect to the login page
+    });
+</script>
+    </nav>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <p>Get in touch for more information.</p>
+        <form id="contactForm">
+            <label for="contactName">Your Name</label>
+            <div style="display: flex; align-items: center;">
+        
+                <input type="text" id="contactName" placeholder="Enter your name" required>
+            </div>
+            <label for="contactEmail">Your Email</label>
+            <div style="display: flex; align-items: center;">
+
+                <input type="email" id="contactEmail" placeholder="Enter your email" required>
+            </div>
+            <label for="contactMessage">Your Message</label>
+            <textarea id="contactMessage" placeholder="Write your message here" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
+    </footer>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Capture form data
+            const name = document.getElementById("contactName").value;
+            const email = document.getElementById("contactEmail").value;
+            const message = document.getElementById("contactMessage").value;
+
+            // Create a contact object
+            const contact = { name, email, message };
+
+            // Retrieve existing contacts from local storage
+            const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+
+            // Add the new contact to the list
+            contacts.push(contact);
+
+            // Save the updated list back to local storage
+            localStorage.setItem("contacts", JSON.stringify(contacts));
+
+            // Show confirmation and reset the form
+            alert("Your message has been sent!");
+            document.getElementById("contactForm").reset();
+        });
+    </script>
+</body>
+</html>

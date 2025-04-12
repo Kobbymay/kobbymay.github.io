@@ -81,11 +81,11 @@
     <div class="signup-container">
         <h2>Log In</h2>
         <form id="loginForm">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
 
             <button type="submit">Log In</button>
         </form>
@@ -93,25 +93,23 @@
     </div>
 
     <script>
-        const form = document.getElementById('loginForm');
-        form.addEventListener('submit', function (event) {
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault();
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
 
-            const name = document.getElementById('name').value;
-            const password = document.getElementById('password').value;
-
-            // Retrieve users from localStorage
-            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const users = JSON.parse(localStorage.getItem("users")) || [];
 
             // Check if the user exists and the password matches
-            const user = users.find(user => user.name === name && user.password === password);
+            const user = users.find(u => u.email === email && u.password === password);
 
             if (user) {
-                localStorage.setItem('username', name); // Save the username
-                alert('Login successful!');
-                window.location.href = './index.html'; // Redirect to the main page
+                alert("Log in successful!");
+                localStorage.setItem("isAdminLoggedIn", "true");
+                // Redirect to index.html
+                window.location.href = "./index.html"; // Adjust the path if needed
             } else {
-                alert('Invalid name or password. Please try again.');
+                alert("Invalid email or password.");
             }
         });
     </script>

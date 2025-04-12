@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Our Recycling Team - PETRACONNECT</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        // Check if the user is logged in
+        const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
+    
+        if (!isLoggedIn || isLoggedIn !== "true") {
+            alert("You must log in to access this page.");
+            window.location.href = "login.html"; // Redirect to the login page
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Join Our Recycling Team</h1>
+        <p>Help us process and recycle waste.</p>
+        <nav>
+            <a href="./index.html">Home</a>
+            <a href="recycled.html">Products</a>
+            <a href="providers.html">Provider Registration</a>
+            <a href="recruitment.html">Join Us</a>
+            <a href="contact.html">Contact</a>
+            <a href="location-services.html">Locate Us</a>
+            <a href="feedback.html">Feedback</a>
+            <a href="requesthelp.html">Request Help</a>
+            <button id="logoutButton">Log Out</button>
+    <script>
+        document.getElementById("logoutButton").addEventListener("click", function() {
+            localStorage.removeItem("isAdminLoggedIn");
+            alert("You have been logged out.");
+            window.location.href = "login.html"; // Redirect to the login page
+        });
+    </script>
+        </nav>
+    </header>
+    <section>
+        <h2>Job Openings</h2>
+        <p>We are looking for passionate individuals to join our team. Please fill out the application form below.</p>
+        <form id="recruitmentForm">
+            <input type="text" id="applicantName" placeholder="Your Name" required><br>
+            <input type="email" id="applicantEmail" placeholder="Your Email" required><br>
+            <textarea id="applicantMessage" placeholder="Why do you want to join us?" required></textarea><br>
+            <button type="submit">Apply</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
+    </footer>
+    <script>
+        document.getElementById("recruitmentForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Capture form data
+            const name = document.getElementById("applicantName").value;
+            const email = document.getElementById("applicantEmail").value;
+            const message = document.getElementById("applicantMessage").value;
+
+            // Create an application object
+            const application = { name, email, message };
+
+            // Retrieve existing applications from local storage
+            const applications = JSON.parse(localStorage.getItem("recruitmentApplications")) || [];
+
+            // Add the new application to the list
+            applications.push(application);
+
+            // Save the updated list back to local storage
+            localStorage.setItem("recruitmentApplications", JSON.stringify(applications));
+
+            // Show confirmation and reset the form
+            alert("Your application has been submitted!");
+            document.getElementById("recruitmentForm").reset();
+        });
+    </script>
+</body>
+</html>

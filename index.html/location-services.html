@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETRACONNECT - Location Services</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        // Check if the user is logged in
+        const isLoggedIn = localStorage.getItem("isAdminLoggedIn");
+    
+        if (!isLoggedIn || isLoggedIn !== "true") {
+            alert("You must log in to access this page.");
+            window.location.href = "login.html"; // Redirect to the login page
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Location Services</h1>
+        <p>Find our services and facilities near you.</p>
+    </header>
+    <nav>
+        <a href="./index.html">Home</a>
+        <a href="recycled.html">Products</a>
+        <a href="providers.html">Provider Registration</a>
+        <a href="recruitment.html">Join Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="location-services.html">Locate Us</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="requesthelp.html">Request Help</a>
+        <button id="logoutButton">Log Out</button>
+<script>
+    document.getElementById("logoutButton").addEventListener("click", function() {
+        localStorage.removeItem("isAdminLoggedIn");
+        alert("You have been logged out.");
+        window.location.href = "login.html"; // Redirect to the login page
+    });
+</script>
+    </nav>
+    <section>
+        <h2>Our Locations</h2>
+        <p>We have multiple facilities dedicated to recycling and processing plastic waste. Below are our main locations:</p>
+        <ul>
+            <li><strong>Head Office:</strong> ACCRA</li>
+            <li><strong>Recycling Facility:</strong> ACCRA</li>
+            <li><strong>Distribution Center:</strong> NATIONWIDE</li>
+        </ul>
+        <p>For more information on our services at each location, please contact us through the <a href="contact.html">Contact Us</a> page.</p>
+    </section>
+    <footer>
+        <p>&copy; 2025 PETRACONNECT INC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
